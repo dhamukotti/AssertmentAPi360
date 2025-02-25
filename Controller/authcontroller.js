@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/User'); 
-const Counter = require('../models/Counter')
+const User = require('../Data/User'); 
+const Counter = require('../Data/Counter')
 
 const login = async (req, res) => {
   try {

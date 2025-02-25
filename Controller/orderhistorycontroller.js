@@ -1,5 +1,5 @@
-const orderhistory = require("../models/orderhistory");
-const Orderhistory = require("../models/orderhistory");
+const orderhistory = require("../Data/orderhistory");
+const Orderhistory = require("../Data/orderhistory");
 
 
 const createorderhistory = async (req, res) => {

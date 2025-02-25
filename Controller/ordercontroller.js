@@ -1,6 +1,6 @@
-const Order = require("../models/Order");
-const Counter = require("../models/Counter");
-const orderhistory = require("../models/orderhistory");
+const Order = require("../Data/Order");
+const Counter = require("../Data/Counter");
+const orderhistory = require("../Data/orderhistory");
 
 const createOrder = async (req, res) => {
   try {
@@ -108,7 +108,7 @@ const getoneorder = async (req, res) => {
   try {
     let { createdBy } = req.query;
 
-    // Convert createdBy to a number if needed
+
     if (!isNaN(createdBy)) {
       createdBy = Number(createdBy);
     }
@@ -156,7 +156,7 @@ const getOrdersfordashboard = async (req, res) => {
       completed: 0,
     };
 
-    // Populate the counts based on the aggregated data
+ 
     statusCounts.forEach((statusCount) => {
       if (statusCount._id === "Pending") {
         counts.pending = statusCount.count;
@@ -167,7 +167,6 @@ const getOrdersfordashboard = async (req, res) => {
       }
     });
 
-    // Return only the status counts
     res.json(counts);
   } catch (error) {
     console.error(error);
@@ -194,24 +193,22 @@ const getOrdersfordashboardfilter = async (req, res) => {
 
     const statusCounts = await Order.aggregate([
       {
-        $match: matchFilter, // Apply the filter
+        $match: matchFilter, 
       },
       {
         $group: {
-          _id: "$status", // Group by status
-          count: { $sum: 1 }, // Count orders in each group
+          _id: "$status",
+          count: { $sum: 1 }, 
         },
       },
     ]);
 
-    // Initialize counts object
     const counts = {
       pending: 0,
       inProgress: 0,
       completed: 0,
     };
 
-    // Populate the counts based on the aggregated data
     statusCounts.forEach((statusCount) => {
       if (statusCount._id === "Pending") {
         counts.pending = statusCount.count;
@@ -222,7 +219,6 @@ const getOrdersfordashboardfilter = async (req, res) => {
       }
     });
 
-    // Return the status counts
     res.json(counts);
   } catch (error) {
     console.error(error);
@@ -254,24 +250,22 @@ const getOrdersForDashboardFilterUser = async (req, res) => {
 
     const statusCounts = await Order.aggregate([
       {
-        $match: matchFilter, // Apply the filter
+        $match: matchFilter, 
       },
       {
         $group: {
-          _id: "$status", // Group by status
-          count: { $sum: 1 }, // Count orders in each group
+          _id: "$status", 
+          count: { $sum: 1 }, 
         },
       },
     ]);
 
-    // Initialize counts object
     const counts = {
       pending: 0,
       inProgress: 0,
       completed: 0,
     };
 
-    // Populate the counts based on the aggregated data
     statusCounts.forEach((statusCount) => {
       if (statusCount._id === "Pending") {
         counts.pending = statusCount.count;
@@ -282,7 +276,6 @@ const getOrdersForDashboardFilterUser = async (req, res) => {
       }
     });
 
-    // Return the status counts
     res.json(counts);
   } catch (error) {
     console.error(error);
